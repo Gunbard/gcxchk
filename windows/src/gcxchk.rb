@@ -75,7 +75,7 @@ my_window_proc = Win32::API::Callback.new('LIIL', 'I') { |hwnd, umsg, wparam, lp
     if lparam == WM_LBUTTONUP
       # Restore window
       top_window.deiconify
-	end
+    end
   end
   
   # I HAVE NO IDEA IF THIS IS THE ACTUAL MINIMIZE MESSAGE but it seems to work okay
@@ -123,17 +123,17 @@ def sleep_brk(seconds) # breaks after n seconds or after interrupt
   while (seconds > 0)
     sleep 1
     seconds -= 1
-	if $time_trigger
-	  $time_trigger = false
-	  break
-	end
+    if $time_trigger
+      $time_trigger = false
+      break
+    end
   end
 end
 
 # Validator for $text_interval
 def valid_interval(text)
   if text.to_i.to_s == text
-	return 0
+    return 0
   else
     return 1
   end
@@ -156,7 +156,7 @@ but_apply_pressed = Proc.new {
   if status > 0
     msg = 'Error: Invalid settings'
   else
-	msg = 'Settings applied.'
+    msg = 'Settings applied.'
     
     # Don't let time interval be zero
     if Integer(ent_interval_textvar.value) == 0
@@ -164,7 +164,7 @@ but_apply_pressed = Proc.new {
     end
     
     $time_interval = Integer(ent_interval_textvar.value)
-	
+    
     
     $time_trigger = true
   end
@@ -190,7 +190,7 @@ root.winfo_children[0].protocol(:WM_DELETE_WINDOW) {
   if defined?(Ocra)
     exit # Don't want to kill when building
   else
-	exit!
+    exit!
   end
 }
 
@@ -207,7 +207,7 @@ while true do
   if File.exists?("#{SAVE_FILE}")
     lines = []
     File.read("#{SAVE_FILE}").each_line do |line|
-	  lines.push(line.chomp)
+      lines.push(line.chomp)
     end
     prev_date = lines[0]
     prev_title = lines[1]
@@ -224,17 +224,17 @@ while true do
   # Compare checks
   if prev_date and prev_title
     if prev_date == latest_date and prev_title == latest_title
-	  puts "[#{Time.now}] Nothing new"
-	else
-	  # ========== PUT CUSTOM STUFF HERE ========= #
-	  msg = "[#{Time.now}] New video uploaded: #{latest_title}"
-	  msg_box = Tk.messageBox ({
-		:type    => 'ok',  
-		:icon    => 'info', 
-		:title   => 'GamingCX Checker',
-		:message => msg
-	  })
-	  # ========== END CUSTOM STUFF ============== #
+      puts "[#{Time.now}] Nothing new"
+    else
+      # ========== PUT CUSTOM STUFF HERE ========= #
+      msg = "[#{Time.now}] New video uploaded: #{latest_title}"
+      msg_box = Tk.messageBox ({
+        :type    => 'ok',  
+        :icon    => 'info', 
+        :title   => 'GamingCX Checker',
+        :message => msg
+      })
+      # ========== END CUSTOM STUFF ============== #
     end
   end
 
