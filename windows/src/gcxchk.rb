@@ -11,6 +11,8 @@
   
   Build into executable using ocra:
   ocra gcxchk.rb gcxchk.tcl --windows C:\Ruby193\lib\tcltk\ --no-autoload --no-enc
+  
+  TODO: Log file, email support, config file
 =end
 
 require 'open-uri'
@@ -91,7 +93,7 @@ my_window_proc = Win32::API::Callback.new('LIIL', 'I') { |hwnd, umsg, wparam, lp
 old_window_proc = SetWindowLong.call($window_handle.to_i(16), GWL_WNDPROC, my_window_proc)
 #------END WNDPROC OVERRIDE------#
 
-$tiptxt = 'GamingCX Checker'
+$tiptxt = 'GamingCX Checker by Gunbard'
 $pnid = [6*4+64, $window_handle.to_i(16), 'ruby'.hash, NIF_MESSAGE | NIF_ICON | NIF_TIP, WM_TRAYICON, hicoY].pack('LLIIIL') << $tiptxt << "\0"*(64 - $tiptxt.size)
 
 ret = Shell_NotifyIcon.call(NIM_ADD, $pnid)
