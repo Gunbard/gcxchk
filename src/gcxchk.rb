@@ -23,7 +23,7 @@ require 'tk'
 SAVE_FILE = 'gcxsave.txt'
 DATE_PATTERN = /<h2 class='date-header'><span>(.*)<\/span><\/h2>/
 TITLE_PATTERN = /<h1 class='post-title entry-title'>\s*<a href='.*'>(.*)<\/a>\s*<\/h1>/
-VERSION_NO = 0.1
+VERSION_NO = 0.2
 
 # WIN32-API CONSTANTS
 WM_USER             = 0x400
@@ -53,6 +53,37 @@ root = TkRoot.new
 top_window = root.winfo_children[0]
 top_window.resizable = false, false
 top_window.title = "GamingCX Checker v#{VERSION_NO}"
+
+# Centers a window
+# @param window The window to center
+# @param parent The window to center in, or the screen if nil
+# @param root Tk root, used for screen centering
+def center_window(window, parent, root)
+  window_width = window.winfo_width
+  window_height = window.winfo_height
+  
+  screen_width = root.winfo_screenwidth
+  screen_height = root.winfo_screenheight
+  
+  screen_Xorigin = 0
+  screen_Yorigin = 0
+  
+  if parent
+    screen_width = parent.winfo_width
+    screen_height = parent.winfo_height
+    
+    screen_Xorigin = parent.winfo_x
+    screen_Yorigin = parent.winfo_y
+  end
+  
+  center_x = (screen_width / 2) - (window_width / 2)
+  center_y = (screen_height / 2) - (window_height / 2)
+  
+  window.geometry("+#{screen_Xorigin + center_x}+#{screen_Yorigin + center_y}")
+end
+
+center_window(top_window, nil, root)
+
 $window_handle = top_window.winfo_id
 
 # Win32 Stuff
